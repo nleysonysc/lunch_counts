@@ -1,25 +1,24 @@
 <script setup>
   import { onMounted, ref } from 'vue';
-  import { RouterLink, RouterView, useRouter } from 'vue-router'
-  import { useUserStore } from './stores/userStore'
+  import { useMessageStore } from './stores/messageStore'
   import { useDisplay } from 'vuetify'
   import UserSearch from './components/UserSearch.vue'
   import QuickScan from "./components/QuickScan.vue"
+  import FlashMessage from "./components/FlashMessage.vue"
 
-  let userStore = useUserStore();
+  let messageStore = useMessageStore()
   let drawer = ref(false)
   let darkMode = ref(true);
-  let router = useRouter()
   const { xs } = useDisplay()
   let showUserSearch = ref(false)
   let sheetLink = ref("")
 
   function onEnter(id){
-    google.script.run.withSuccessHandler(console.log).withFailureHandler(console.log).add(id)
+    google.script.run.withSuccessHandler(messageStore.add).withFailureHandler(messageStore.add).add(id)
   }
 
   onMounted(_=> {
-    google.script.run.withSuccessHandler(e=>sheetLink.value=e).withFailureHandler(console.log).getSheetUrl()
+    google.script.run.withSuccessHandler(e=>sheetLink.value=e).withFailureHandler(messageStore.add).getSheetUrl()
   })
 
 </script>
@@ -89,6 +88,7 @@
         </v-dialog>
         
         <QuickScan :onEnter="onEnter" />
+        <FlashMessage />
       </v-container>
     </v-main>
   </v-app>

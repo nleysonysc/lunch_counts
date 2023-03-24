@@ -1,6 +1,5 @@
 <script setup>
   import { ref, watch } from 'vue'
-  import { useAssetStore } from '../stores/assetStore'
   import { useRouter } from 'vue-router'
   import QuickScan from "../components/QuickScan.vue"
 
