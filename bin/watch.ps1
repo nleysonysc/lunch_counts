@@ -1,0 +1,1 @@
+start-process powershell -argument 'cd ./as_build;clasp push -w;read-host "press enter"'

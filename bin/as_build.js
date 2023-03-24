@@ -1,0 +1,5 @@
+const fs = require("fs")
+let css = fs.readFileSync('./dist/index.css')
+let js = fs.readFileSync('./dist/index.js')
+fs.writeFileSync('./as_build/style.html', `<style>${css.toString()}</style>`)
+fs.writeFileSync('./as_build/app.html', `<script>${js.toString()}</script>`)
